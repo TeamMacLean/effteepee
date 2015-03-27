@@ -1,6 +1,6 @@
 # EffTeePee
 
-> folder browsing and uploading
+> File Browser
 
 ## Install
 
