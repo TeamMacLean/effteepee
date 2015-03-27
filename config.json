@@ -1,4 +1,6 @@
 {
   "appName": "TSL Data",
-  "dataRoot": "/Users/pagem/Documents/workspace/"
+  "dataRoot": "/Users/pagem/Documents/",
+  "allowDotFiles": false,
+  "allowDotFolders": false
 }

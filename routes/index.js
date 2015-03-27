@@ -62,12 +62,9 @@ function handleDirectory(url, res) {
             files.forEach(function (file) {
 
 
+                var fullPath = path.join(root, url, file);
 
-                var fullPath = path.join(root,url, file);
-
-                var relPath = path.join(url,file);
-
-                console.log(url);
+                var relPath = path.join(url, file);
 
                 var stats = fs.statSync(fullPath);
                 var isDir = stats.isDirectory();
@@ -83,8 +80,22 @@ function handleDirectory(url, res) {
                 var currentFile = file.substring(file.lastIndexOf("/") + 1, file.length);
 
 
-                if (currentFile.indexOf('.') !== 0) { //anything starting with '.'
-                    //if (!(currentFile.indexOf('.') == 0 && !isDir)) { //files starting with '.'
+                var isDotFile = currentFile.indexOf('.') === 0;
+
+                if (isDotFile) {
+                    if (isDir) {
+                        console.log(currentFile,'is dir');
+                        if (config.allowDotFolders) {
+                            outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
+                        }
+                    } else {
+                        console.log(currentFile,'not dir');
+                        if (config.allowDotFiles) {
+                            outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
+                        }
+                    }
+
+                } else {
                     outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
                 }
 

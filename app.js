@@ -7,8 +7,8 @@ var flash = require('connect-flash');
 var MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var routes = require('./routes/index');
-var auth = require('./routes/auth');
+var indexRoute = require('./routes/index');
+var authRoute = require('./routes/auth');
 
 var DB_NAME = 'effteepee';
 var DB_HOST = 'localhost';
@@ -99,8 +99,8 @@ app.use(function (req, res, next) {
 });
 
 
-app.use('/', auth);
-app.use('/', routes);
+app.use('/', authRoute);
+app.use('/', indexRoute);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
