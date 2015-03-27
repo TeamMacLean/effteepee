@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><%- title %></a>
+        </div>
+
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <% if (!locals.signedInUser) { %>
+                <li>
+                    <a href="/signin">Sign in</a>
+                </li>
+                <% } else { %>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false"><%- locals.signedInUser.username %>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/signout">Sign out</a></li>
+                    </ul>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<% if(locals.info){ locals.info.forEach(function(flash, index) { %>
+<div class="alert alert-info" role="alert"><%- flash %></div>
+<% })} %>
+<% if(locals.success){ locals.success.forEach(function(flash, index) { %>
+<div class="alert alert-success" role="alert"><%- flash %></div>
+<% })} %>
+<% if(locals.error){ locals.error.forEach(function(flash, index) { %>
+<div class="alert alert-danger" role="alert"><%- flash %></div>
+<% })} %>

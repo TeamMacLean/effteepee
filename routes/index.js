@@ -54,41 +54,77 @@ function handleDirectory(url, res) {
     }
 
     fs.readdir(fullPath, function (err, files) {
-        if (err) {
-            return handleError(err, res);
+            if (err) {
+                return handleError(err, res);
+            }
+
+            var outFiles = [];
+            files.forEach(function (file) {
+
+
+                var fullPath = path.join(url, file);
+                var stats = fs.statSync(fullPath);
+                var isDir = stats.isDirectory();
+                var mtime = stats.mtime;
+                var size = '-';
+                if (!isDir) {
+                    size = humanFileSize(stats.size);
+                }
+                if (mtime) {
+                    mtime = mtime.formatShort();
+                }
+
+                var currentFile = file.substring(file.lastIndexOf("/") + 1, file.length);
+
+                if (currentFile.indexOf('.') !== 0) { //anything starting with '.'
+                    //if (!(currentFile.indexOf('.') == 0 && !isDir)) { //files starting with '.'
+                    outFiles.push({name: file, path: '/' + fullPath, isDir: isDir, mtime: mtime, size: size});
+                }
+
+            });
+
+            var parentDir = findParentDir(url);
+
+            var pathArray = [];
+
+            var withSlash = '/' + url;
+
+            var currentFolder = withSlash.substring(withSlash.lastIndexOf("/") + 1, withSlash.length);
+
+            pathArray.push({name: currentFolder, link: withSlash});
+
+            for (var i = withSlash.length; i > 0; i--) {
+                if (withSlash[i] === "/") {
+                    var link = withSlash.slice(0, i);
+                    var name = link.substring(link.lastIndexOf("/") + 1, link.length);
+                    pathArray.push({name: name, link: link});
+                }
+            }
+
+
+            pathArray.push({name: config.appName, link: '/'});
+
+            pathArray.reverse();
+
+
+            res.render('index', {
+                title: config.appName,
+                pathArray: pathArray,
+                files: outFiles,
+                atRoot: atRoot,
+                parentDir: parentDir
+            });
         }
-
-        var outFiles = [];
-        files.forEach(function (file) {
-            var fullPath = path.join(url, file);
-            var stats = fs.statSync(fullPath);
-            var isDir = stats.isDirectory();
-            var mtime = stats.mtime;
-            var size = '-';
-            if (!isDir) {
-                size = humanFileSize(stats.size);
-            }
-            if (mtime) {
-                mtime = mtime.formatShort();
-            }
-
-            outFiles.push({name: file, path: '/' + fullPath, isDir: isDir, mtime: mtime, size: size});
-
-        });
-
-        var parentDir = findParentDir(url);
-
-        res.render('index', {title: config.appName, files: outFiles, atRoot: atRoot, parentDir: parentDir});
-    });
+    );
 }
 
 function download(download, res) {
     var fullPath = path.join(root, download);
-    console.log('download', fullPath);
     return res.sendFile(fullPath);
 }
 
 function handleError(err, res) {
     res.status(404).send(err);
 }
+
 module.exports = router;

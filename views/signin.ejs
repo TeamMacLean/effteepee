@@ -1,0 +1,53 @@
+<% include head.ejs %>
+
+<div class="container">
+    <div class="login-form-section">
+
+        <div class="login-content animated bounceInDown" data-animation="bounceIn">
+            <form action="/signin" method="POST">
+                <div class="section-title">
+                    <h3>Sign in to <%- title %></h3>
+                </div>
+                <div class="textbox-wrap">
+                    <div class="input-group">
+                        <span class="input-group-addon "><i class="fa fa-user"></i></span>
+                        <input type="text" required="required" class="form-control" name="username"
+                               placeholder="Username">
+                    </div>
+                </div>
+                <div class="textbox-wrap">
+                    <div class="input-group">
+                        <span class="input-group-addon "><i class="fa fa-key"></i></span>
+                        <input type="password" required="required" class="form-control " name="password"
+                               placeholder="Password">
+                    </div>
+                </div>
+                <div class="login-form-action clearfix">
+
+                    <a href="/" class="btn btn-default">Back</a>
+
+                    <button type="submit" class="btn btn-success">Sign in &nbsp; <i
+                                class="fa fa-chevron-right"></i></button>
+
+                </div>
+
+            </form>
+
+            <% if(locals.info){ locals.info.forEach(function(flash, index) { %>
+            <div class="alert alert-info" role="alert"><%- flash %></div>
+            <% })} %>
+            <% if(locals.success){ locals.success.forEach(function(flash, index) { %>
+            <div class="alert alert-success" role="alert"><%- flash %></div>
+            <% })} %>
+            <% if(locals.error){ locals.error.forEach(function(flash, index) { %>
+            <div class="alert alert-danger" role="alert"><%- flash %></div>
+            <% })} %>
+        </div>
+
+
+    </div>
+</div>
+
+<% include foot.ejs %>
+
+
