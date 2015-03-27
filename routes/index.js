@@ -5,7 +5,7 @@ var root = config.dataRoot;
 var fs = require('fs');
 var path = require('path');
 
-router.get('/*', function (req, res) {
+router.get('/*', function (req, res, next) {
     var url = req.params[0];
     var currentPath = path.join(root, url);
     fs.exists(currentPath, function (exists) {
@@ -16,7 +16,7 @@ router.get('/*', function (req, res) {
                 return download(url, res);
             }
         } else {
-            return handleError('does not exist', res);
+            return next();
         }
     });
 });
@@ -62,7 +62,13 @@ function handleDirectory(url, res) {
             files.forEach(function (file) {
 
 
-                var fullPath = path.join(url, file);
+
+                var fullPath = path.join(root,url, file);
+
+                var relPath = path.join(url,file);
+
+                console.log(url);
+
                 var stats = fs.statSync(fullPath);
                 var isDir = stats.isDirectory();
                 var mtime = stats.mtime;
@@ -76,9 +82,10 @@ function handleDirectory(url, res) {
 
                 var currentFile = file.substring(file.lastIndexOf("/") + 1, file.length);
 
+
                 if (currentFile.indexOf('.') !== 0) { //anything starting with '.'
                     //if (!(currentFile.indexOf('.') == 0 && !isDir)) { //files starting with '.'
-                    outFiles.push({name: file, path: '/' + fullPath, isDir: isDir, mtime: mtime, size: size});
+                    outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
                 }
 
             });
