@@ -139,4 +139,6 @@ input[type="checkbox"] {
 .breadcrumb {
     border-radius: 0;
     background: transparent;
+    padding-left: 0;
+    padding-right: 0;
 }

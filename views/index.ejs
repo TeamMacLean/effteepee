@@ -14,8 +14,10 @@
         <% }) %>
     </ol>
 
+    <% if (locals.signedInUser) { %>
     <a href="?createFolder" class="btn btn-default"><i class="fa fa-plus-square"></i> Create Folder Here</a>
     <a href="?upload" class="btn btn-default"><i class="fa fa-plus-circle"></i> Upload File Here</a>
+    <% } %>
 
     <div class="table-responsive">
         <table class="table table-hover">
