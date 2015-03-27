@@ -1,5 +1,7 @@
 # EffTeePee
 
+> folder browsing and uploading
+
 ## Install
 
 ```
