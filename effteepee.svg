@@ -1,13 +1,94 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="15.875mm" width="15.875mm" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 15.874999 15.875001">
- <g id="layer1" transform="translate(-21.167 -16.542)">
-  <path id="path4524" d="m28.31 16.806 0.79375 1.5875 0.79375-1.5875" stroke="#876231" stroke-width=".1" fill="none"/>
-  <path id="path4526" d="m29.104 18.129 0.000001-1.5875" stroke="#876231" stroke-width=".1" fill="none"/>
-  <g fill-rule="evenodd">
-   <path id="path4516" d="m28.84 18.129-7.6729 14.288 15.875 0.000001-7.6729-14.288z" fill="#dabe99"/>
-   <path id="path4528" d="m23.548 27.919h11.112l-0.52917-1.0583h-10.054z" fill="#d44229"/>
-   <path id="path4530" d="m27.252 32.417h3.7042l-0.52917-3.9688h-2.6458z"/>
-   <path id="path4532" d="m24.342 26.331h9.525l-0.79375-1.5875h-7.9375z" fill="#3498db"/>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg2"
+   height="15.875mm"
+   viewBox="0 0 15.874999 15.875001"
+   width="15.875mm"
+   version="1.1"
+   inkscape:version="0.91+devel+osxmenu r12896"
+   sodipodi:docname="effteepee.svg">
+  <metadata
+     id="metadata4531">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs4529" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="686"
+     inkscape:window-height="480"
+     id="namedview4527"
+     showgrid="false"
+     inkscape:zoom="3.9333333"
+     inkscape:cx="30"
+     inkscape:cy="30"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <g
+     stroke="#876231"
+     stroke-width=".1"
+     fill="none"
+     id="g4515"
+     inkscape:export-xdpi="819.20099"
+     inkscape:export-ydpi="819.20099"
+     inkscape:export-filename="/Users/pagem/Documents/workspace/effteepee/public/img/logo.png">
+    <path
+       id="path4524"
+       d="m7.143 0.264 0.7945 4.4985 0.793-4.4985" />
+    <path
+       id="path4526"
+       d="m7.9375 4.2333-0.0005-4.2338" />
+    <path
+       id="path4597"
+       d="m8.2021 4.2333-1.5875-3.7041" />
+    <path
+       id="path4599"
+       d="m7.6729 4.2333 1.5875-3.7041" />
   </g>
- </g>
+  <g
+     fill-rule="evenodd"
+     id="g4521"
+     inkscape:export-xdpi="819.20099"
+     inkscape:export-ydpi="819.20099"
+     inkscape:export-filename="/Users/pagem/Documents/workspace/effteepee/public/img/logo.png">
+    <path
+       id="path4516"
+       d="m7.6729 3.9688-7.6729 11.377s3.9688 0.52917 5.2917 0.52917h2.6458 2.6458c1.3229 0 5.2917-0.52917 5.2917-0.52917l-7.6729-11.377z"
+       fill="#e6d4be" />
+    <path
+       id="path4528"
+       d="m2.9104 11.112s-0.26458 0.26458 5.0271 0.26458 5.0271-0.26458 5.0271-0.26458l-0.79375-1.3229s0 0.26458-4.2333 0.26458-4.1903-0.26458-4.1903-0.26458z"
+       fill="#d44229" />
+    <path
+       id="path4532"
+       d="m3.9688 9.525s-0.26458 0.26458 3.9688 0.26458c4.2333 0 3.9688-0.26458 3.9688-0.26458l-1.058-1.5875-0.529 1.5875-1.3232-1.3229-1.0583 1.4444-1.0583-1.4444-1.323 1.3229-0.5291-1.5875z"
+       fill="#3498db" />
+    <path
+       id="path4530"
+       d="m6.085 15.875h3.7042s-0.52878-4.2333-1.8517-4.2333-1.8525 4.2333-1.8525 4.2333z"
+       fill="#3c2b17" />
+  </g>
 </svg>
