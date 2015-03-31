@@ -2,24 +2,39 @@
 <% include nav.ejs %>
 
 
-<div class="container">
+<div class="bcrow">
+    <div class="container">
+        <ol class="breadcrumb">
+            <% pathArray.forEach(function(p){ %>
+            <li>
+                <a href="<%- p.link %>">
+                    <%- p.name %>
+                </a>
+            </li>
+            <% }) %>
+        </ol>
+    </div>
+</div>
 
-    <ol class="breadcrumb">
-        <% pathArray.forEach(function(p){ %>
-        <li>
-            <a href="<%- p.link %>">
-                <%- p.name %>
-            </a>
-        </li>
-        <% }) %>
-    </ol>
+
+<div class="container mt">
 
     <% if (locals.signedInUser) { %>
-    <a href="?createFolder" class="btn btn-default"><i class="fa fa-plus-square"></i> Create Folder Here</a>
-    <a href="?upload" class="btn btn-default"><i class="fa fa-plus-circle"></i> Upload File Here</a>
+    <!--<a href="?createFolder" class="btn btn-default"><i class="fa fa-plus-square"></i> Create Folder Here</a>-->
+    <!--<a href="?uploadFile" class="btn btn-default"><i class="fa fa-plus-circle"></i> Upload File Here</a>-->
+
+
+    <button type="button" class="btn btn-default" data-toggle="modal" data-backdrop="static"
+            data-keyboard="false" data-target="#newFolderModal">
+        <i class="fa fa-plus-square"></i> Create Folder Here
+    </button>
+    <!--<button type="button" class="btn btn-default" data-toggle="modal" data-backdrop="static"-->
+    <!--data-keyboard="false" data-target="#fileUploadModal">-->
+    <!--<i class="fa fa-upload"></i> Upload File Here-->
+    <!--</button>-->
     <% } %>
 
-    <div class="table-responsive">
+    <div class="table-responsive mt">
         <table class="table table-hover">
             <thead>
             <tr>
@@ -36,11 +51,14 @@
                 <td>
                     <a href="<%- parentDir %>">Parent Directory</a>
                 </td>
+                <td></td>
+                <td></td>
             </tr>
 
             <% } %>
 
             <% files.forEach(function(file){ %>
+
             <tr>
                 <td>
                     <% if (file.isDir) { %>
@@ -53,6 +71,7 @@
                 <td><%- file.mtime %></td>
                 <td><%- file.size %></td>
             </tr>
+
             <% }) %>
 
             </tbody>
@@ -62,4 +81,5 @@
 
 </div>
 
+<% include modal.ejs %>
 <% include foot.ejs %>

@@ -2,5 +2,6 @@
   "appName": "TSL Data",
   "dataRoot": "/Users/pagem/Documents/",
   "allowDotFiles": false,
-  "allowDotFolders": false
+  "allowDotFolders": false,
+  "sortAlphabetical": true
 }

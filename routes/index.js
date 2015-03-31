@@ -2,11 +2,28 @@ var express = require('express');
 var router = express.Router();
 var config = require('../config.json');
 var root = config.dataRoot;
+var appName = config.appName;
+var allowDotFolders = config.allowDotFolders;
+var allowDotFiles = config.allowDotFiles;
+var sortAlphabetical = config.sortAlphabetical;
 var fs = require('fs');
 var path = require('path');
 
 router.get('/*', function (req, res, next) {
     var url = req.params[0];
+
+    var createFolder = req.query.createFolder;
+    var uploadFile = req.query.uploadFile;
+
+    if (req.isAuthenticated()) { //only auth users can do this
+        if (typeof createFolder !== "undefined") {
+            return newFolder(createFolder, url, res)
+        }
+        if (typeof uploadFile !== "undefined") {
+            return upload(uploadFile, url, res);
+        }
+    }
+
     var currentPath = path.join(root, url);
     fs.exists(currentPath, function (exists) {
         if (exists) {
@@ -46,6 +63,7 @@ function findParentDir(currentPath) {
 }
 
 function handleDirectory(url, res) {
+
     var fullPath = path.join(root, url);
 
     var atRoot = false;
@@ -84,14 +102,24 @@ function handleDirectory(url, res) {
 
                 if (isDotFile) {
                     if (isDir) {
-                        console.log(currentFile,'is dir');
-                        if (config.allowDotFolders) {
-                            outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
+                        if (allowDotFolders) {
+                            outFiles.push({
+                                name: file,
+                                path: '/' + relPath,
+                                isDir: isDir,
+                                mtime: mtime,
+                                size: size
+                            });
                         }
                     } else {
-                        console.log(currentFile,'not dir');
-                        if (config.allowDotFiles) {
-                            outFiles.push({name: file, path: '/' + relPath, isDir: isDir, mtime: mtime, size: size});
+                        if (allowDotFiles) {
+                            outFiles.push({
+                                name: file,
+                                path: '/' + relPath,
+                                isDir: isDir,
+                                mtime: mtime,
+                                size: size
+                            });
                         }
                     }
 
@@ -120,13 +148,18 @@ function handleDirectory(url, res) {
             }
 
 
-            pathArray.push({name: config.appName, link: '/'});
+            pathArray.push({name: appName, link: '/'});
 
             pathArray.reverse();
 
 
+            if (sortAlphabetical) {
+                files.sort();
+            }
+
+
             res.render('index', {
-                title: config.appName,
+                title: appName,
                 pathArray: pathArray,
                 files: outFiles,
                 atRoot: atRoot,
@@ -144,5 +177,21 @@ function download(download, res) {
 function handleError(err, res) {
     res.status(404).send(err);
 }
+
+function upload(url, res) {
+    var fullPath = path.join(root, url);
+}
+
+function newFolder(folderName, url, res) {
+    var fullPath = path.join(root, url, folderName);
+
+    fs.mkdir(fullPath, 0755, function (err) {
+        if (err) console.error(err);
+        console.log('tried to make', fullPath);
+
+        return res.redirect('/' + url);
+    });
+}
+
 
 module.exports = router;
