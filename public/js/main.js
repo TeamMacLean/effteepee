@@ -7,7 +7,7 @@ $(document).ready(function () {
     document.getElementById('fileUploadModal').value = SelectedFile.name;
   }
 
-  var socket = io.connect('http://localhost:8080');
+  var socket = io.connect();
   var FReader;
 
   socket.on('MoreData', function (data) {
