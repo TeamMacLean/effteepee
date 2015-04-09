@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 
 var config = require('../config.json');
 
-var User = require('../models/User');
+var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
