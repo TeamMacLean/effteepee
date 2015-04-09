@@ -4,6 +4,13 @@
  * Module dependencies.
  */
 
+var config = require('./config.json');
+var dataRoot = config.dataRoot;
+var port = config.port;
+
+var fs = require('fs');
+var path = require('path');
+
 var app = require('./app');
 var debug = require('debug')('effteepee:server');
 var http = require('http');
@@ -12,7 +19,6 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = '80';
 app.set('port', port);
 
 /**
@@ -30,24 +36,75 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
- * Normalize a port into a number, string, or false.
+ *
+ * Socket.io setup
  */
+var Files = {};
+var io = require('socket.io').listen(server);
+io.sockets.on('connection', function (socket) {
 
-function normalizePort(val) {
-  var port = parseInt(val, 10);
+  socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
+    var Name = data['Name'];
+    Files[Name] = {  //Create a new Entry in The Files Variable
+      FileSize: data['Size'],
+      Data: "",
+      Downloaded: 0,
+      Dir: data['Dir']
+    };
+    var Place = 0;
+    var outPath = path.join(dataRoot, Files[Name].Dir, Name);
+    try {
+      var Stat = fs.statSync(outPath);
+      if (Stat.isFile()) {
+        Files[Name]['Downloaded'] = Stat.size;
+        Place = Stat.size / 524288;
+      }
+    }
+    catch (er) {
+    } //It's a New File
+    fs.open(outPath, "a", 0755, function (err, fd) {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        Files[Name]['Handler'] = fd; //We store the file handler so we can write to it later
+        socket.emit('MoreData', {'Place': Place, Percent: 0});
+      }
+    });
+  });
+  socket.on('Upload', function (data) {
+    var Name = data['Name'];
+    Files[Name]['Downloaded'] += data['Data'].length;
+    Files[Name]['Data'] += data['Data'];
+    if (Files[Name]['Downloaded'] == Files[Name]['FileSize']) //If File is Fully Uploaded
+    {
+      fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function (err, Writen) {
+        if (err) {
+          console.log('error!', err);
+        }
 
-  if (isNaN(port)) {
-    // named pipe
-    return val;
-  }
+        socket.emit('Complete');
+      });
+    }
+    else if (Files[Name]['Data'].length > 10485760) { //If the Data Buffer reaches 10MB
+      fs.write(Files[Name]['Handler'], Files[Name]['Data'], null, 'Binary', function (err, Writen) {
+        if (err) {
+          console.log('error!', err);
+        }
+        Files[Name]['Data'] = ""; //Reset The Buffer
+        var Place = Files[Name]['Downloaded'] / 524288;
+        var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
+        socket.emit('MoreData', {'Place': Place, 'Percent': Percent});
+      });
+    }
+    else {
+      var Place = Files[Name]['Downloaded'] / 524288;
+      var Percent = (Files[Name]['Downloaded'] / Files[Name]['FileSize']) * 100;
+      socket.emit('MoreData', {'Place': Place, 'Percent': Percent});
+    }
+  });
+});
 
-  if (port >= 0) {
-    // port number
-    return port;
-  }
-
-  return false;
-}
 
 /**
  * Event listener for HTTP server "error" event.

@@ -36,17 +36,19 @@
                 <div class="textbox-wrap">
                     <div class="input-group">
                         <span class="input-group-addon "><i class="fa fa-upload"></i></span>
-                        <input type="file" required="required" class="form-control " id="file"
+                        <input type="file" required="required" class="form-control " id="FileBox"
                                name="file" placeholder="File">
                     </div>
                 </div>
                 <div class="form-action clearfix">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel
                     </button>
-                    <button type="submit" class="btn btn-success pull-right">Upload <i class="fa fa-chevron-right"></i>
+                    <button type="button" id="UploadButton" class="btn btn-success pull-right">Upload <i
+                                class="fa fa-chevron-right"></i>
                     </button>
                 </div>
             </form>
+            <div id="uploadInfo"></div>
         </div>
     </div>
 </div>

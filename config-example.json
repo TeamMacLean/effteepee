@@ -1,4 +1,5 @@
 {
+  "port": 8080,
   "appName": "TSL Data",
   "dataRoot": "/Users/pagem/Documents/",
   "allowDotFiles": false,
