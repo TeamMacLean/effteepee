@@ -7,7 +7,7 @@ $(document).ready(function () {
     document.getElementById('fileUploadModal').value = SelectedFile.name;
   }
 
-  var socket = io('http://v0569.nbi.ac.uk');
+  var socket = io(window.location.host);
   var FReader;
 
   socket.on('MoreData', function (data) {
