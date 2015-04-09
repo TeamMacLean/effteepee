@@ -40,7 +40,7 @@ server.on('listening', onListening);
  * Socket.io setup
  */
 var Files = {};
-var io = require('socket.io').listen(app);
+var io = require('socket.io').listen(server);
 io.sockets.on('connection', function (socket) {
 
   socket.on('Start', function (data) { //data contains the variables that we passed through in the html file
