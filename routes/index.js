@@ -171,6 +171,7 @@ function handleDirectory(url, res) {
 
 function download(download, res) {
     var fullPath = path.join(root, download);
+    res.setHeader("Content-Type", "application/octet-stream");
     return res.sendFile(fullPath);
 }
 
