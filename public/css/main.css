@@ -2,7 +2,7 @@
 
 body {
     margin-top: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -160,4 +160,9 @@ tr {
   bottom: 0;
   width: 100%;
   background-color: #f8f8f8;
+  padding: 5px
+}
+
+.footer p {
+  margin: 0;
 }
