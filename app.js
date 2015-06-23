@@ -80,6 +80,13 @@ db.on('disconnected', function () {
 });
 mongoose.connect(dbURI, {server: {auto_reconnect: true}});
 
+
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'ftp-oadb.tsl.ac.uk');
+  res.header('Access-Control-Allow-Credentials', 'false');
+  next();
+});
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
